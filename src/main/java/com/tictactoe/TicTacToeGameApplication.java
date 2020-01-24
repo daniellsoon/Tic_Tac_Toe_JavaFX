@@ -1,7 +1,8 @@
 package com.tictactoe;
 
 
-import com.tictactoe.boardButtons.TicTacToeBoardButton;
+import com.tictactoe.gameController.GameController;
+import com.tictactoe.gameController.TicTacToeBoardButton;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -11,7 +12,7 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
-import java.util.Random;
+import static com.tictactoe.gameController.GameController.MAXBOARDBUTTONS;
 
 
 public class TicTacToeGameApplication extends Application {
@@ -19,17 +20,12 @@ public class TicTacToeGameApplication extends Application {
     private Label playerPoints = new Label("Player points: ");
     private Label opponentPoints = new Label("Opponent points: ");
 
-    private TicTacToeBoardButton [] buttons;
-    private int[] buttonStatus;
-    private final int  MAXBOARDBUTTONS = 9;
-    private int  siRandom;
-    private int movesCount = 0;
-    private int MAXMOVES = 9;
-
-    private boolean opponentSi = false ;
-    private boolean playerTurn = true;
+    private TicTacToeBoardButton[] buttons;
 
     private Image imageback = new Image("/BackAndBoard.png");
+
+
+
 
     public static void main(String[] args) {
         launch(args);
@@ -61,6 +57,7 @@ public class TicTacToeGameApplication extends Application {
 
         buttons = new TicTacToeBoardButton[MAXBOARDBUTTONS];
 
+
         for (int i = 0; i < MAXBOARDBUTTONS; i++) {
             buttons[i] = new TicTacToeBoardButton();
             buttons[i].setPrefSize(120,120);
@@ -74,127 +71,11 @@ public class TicTacToeGameApplication extends Application {
             }
         }
 
+        GameController gameController = new GameController();
+        gameController.ticTacToeGame(buttons);
 
 
-        for (TicTacToeBoardButton button : buttons) {
-            button.setOnAction( event -> {
-                if (movesCount == 9) {
-                    System.out.println("No more moves! Clearing board!");
-                    restartBoard();
-                }
-                if (playerTurn) {
-                    playerONEmove(button);
 
-                    if (opponentSi) {
-                        computerMove();
-                    }
-                }
-                if (!playerTurn) {
-                    playerTWOmove(button);
-                }
-            });
-        }
-    }
-
-
-    private void computerMove() {
-        Random randomGenerator = new Random();
-        if (movesCount < MAXMOVES) {
-            if (!playerTurn) {
-                int siRandom;
-                do {
-                    siRandom = randomGenerator.nextInt(MAXBOARDBUTTONS);
-                } while (buttons[siRandom].getGraphic() != null);
-
-                buttons[siRandom].setValueForO();
-                playerTurn = true;
-                movesCount++;
-                winChecker();
-
-            }
-        }
-    }
-
-    private void playerONEmove(TicTacToeBoardButton button) {
-        if (movesCount < MAXMOVES) {
-            if (button.getGraphic() == null) {
-                if (playerTurn) {
-                    button.setValueForX();
-                    playerTurn = false;
-                    movesCount++;
-                    winChecker();
-
-                } else {
-                    playerTurn = true;
-                }
-            }
-        }
-    }
-
-    private void playerTWOmove(TicTacToeBoardButton button) {
-        if (movesCount < MAXMOVES) {
-            if (button.getGraphic() == null) {
-                if (!playerTurn) {
-                    button.setValueForO();
-                    playerTurn = true;
-                    movesCount++;
-                    winChecker();
-                } else {
-                    playerTurn = false;
-                }
-            }
-        }
-    }
-
-    private void restartBoard() {
-        for (TicTacToeBoardButton button : buttons) {
-            button.setValueForReset();
-        }
-        movesCount = 0;
-    }
-
-    private void winChecker() {
-        //Horizontal Checker
-        for (int i = 0; i < MAXBOARDBUTTONS; i = i + 3) {
-            if (buttons[i].getValue() == 1 && buttons[i + 1].getValue() == 1 && buttons[i + 2].getValue() == 1) {
-                System.out.println("X Win!");
-                restartBoard();
-                ;
-            }
-            if (buttons[i].getValue() == -1 && buttons[i + 1].getValue() == -1 && buttons[i + 2].getValue() == -1) {
-                System.out.println("O Win!");
-                restartBoard();
-            }
-        }
-        //Vertical Checker
-        for (int i = 0; i < 3; i++) {
-            if (buttons[i].getValue() == 1 && buttons[i + 3].getValue() == 1 && buttons[i + 6].getValue() == 1) {
-                System.out.println("X Win!");
-                restartBoard();
-            }
-            if (buttons[i].getValue() == -1 && buttons[i + 3].getValue() == -1 && buttons[i + 6].getValue() == -1) {
-                System.out.println("O Win!");
-                restartBoard();
-            }
-        }
-        //Diagonal Checker
-        if (buttons[0].getValue() == 1 && buttons[4].getValue() == 1 && buttons[8].getValue() == 1) {
-            System.out.println("X Win!");
-            restartBoard();
-        }
-        if (buttons[0].getValue() == -1 && buttons[4].getValue() == -1 && buttons[8].getValue() == -1) {
-            System.out.println("0 Win!");
-            restartBoard();
-        }
-
-        if (buttons[2].getValue() == 1 && buttons[4].getValue() == 1 && buttons[6].getValue() == 1) {
-            System.out.println("X Win!");
-            restartBoard();
-        }
-        if (buttons[2].getValue() == -1 && buttons[4].getValue() == -1 && buttons[6].getValue() == -1) {
-            System.out.println("0 Win!");
-            restartBoard();
-        }
 
     }
 }

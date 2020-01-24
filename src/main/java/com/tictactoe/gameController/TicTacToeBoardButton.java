@@ -1,4 +1,4 @@
-package com.tictactoe.boardButtons;
+package com.tictactoe.gameController;
 
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
