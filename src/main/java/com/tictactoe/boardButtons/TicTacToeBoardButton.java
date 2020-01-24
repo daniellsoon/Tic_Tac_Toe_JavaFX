@@ -50,5 +50,12 @@ public class TicTacToeBoardButton extends Button {
         }
     }
 
+    public void setValueForReset() {
+        if ( this.value != 0) {
+            this.setState(0);
+
+        }
+    }
+
 }
 
