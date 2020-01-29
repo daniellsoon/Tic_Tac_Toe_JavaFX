@@ -24,10 +24,10 @@ public class TicTacToeBoardButton extends Button {
             this.setGraphic(null);
             this.value = 0;
         } else  if (state == 1) {
-            this.setGraphic(new ImageView("/Cross.png"));
+            this.setGraphic(new ImageView(cross));
             this.value = 1;
         } else if (state == -1){
-            this.setGraphic(new ImageView("/Circle.png"));
+            this.setGraphic(new ImageView(circle));
             this.value = -1;
         } else {
             System.out.println("setState() called with illegal state");
