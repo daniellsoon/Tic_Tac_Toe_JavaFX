@@ -11,7 +11,6 @@ public class TicTacToeBoardButton extends Button {
 
 
     private int value;
-    //0 , 1 , -1
 
     public TicTacToeBoardButton() {
 
@@ -19,7 +18,7 @@ public class TicTacToeBoardButton extends Button {
 
     }
 
-    private void setState(int state) {
+    public void setState(int state) {
         if (state == 0) {
             this.setGraphic(null);
             this.value = 0;
