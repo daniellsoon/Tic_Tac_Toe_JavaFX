@@ -1,6 +1,10 @@
 package com.tictactoe.gameController;
 
-public class Player {
+import java.io.Serializable;
+
+public class Player implements Serializable {
+
+    private static final long serialVersionUID = 2L;
 
     String name;
     int winsInRow;

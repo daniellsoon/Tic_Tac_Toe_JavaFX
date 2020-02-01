@@ -42,7 +42,7 @@ public class GameController {
     private TicTacToeGameApplication ticTacToeGameApplication = new TicTacToeGameApplication();
 
 
-    private File saved = new File("/1.save");
+    private File saved = new File("1.save");
 
 
     public IntegerProperty getWinInRowProperty() {
@@ -72,10 +72,7 @@ public class GameController {
                 } else if (oWins) {
                     restartBoard(buttons);
                     oWins = false;
-                    if (opponentSi) {
-                        Player player = new Player(ticTacToeGameApplication.getNameTextField(), winsInRow);
-                        rankingManager.rankingChecker(player);
-                    }
+
                 } else {
                     if (playerTurn) {
                         playerONEmove(button, buttons);
@@ -266,8 +263,15 @@ public class GameController {
             opponentWinsCount++;
             opponentWinsProperty.setValue(opponentWinsCount);
 
+            if (opponentSi) {
+                Player player = new Player(TicTacToeGameApplication.name.getText(), winsInRow);
+                rankingManager.rankingChecker(player);
+            }
+
             winsInRow = 0;
             winInRowProperty.setValue(winsInRow);
+
+
 
         }
 
@@ -292,16 +296,17 @@ public class GameController {
         data.savePlayerWins = playerWinsCount;
         data.saveGameMode = opponentSi;
         data.saveWinInRow = winsInRow;
+        data.savePlayerTurn = playerTurn;
 
-        data.savedButtonsValue0 = buttons[0].getValue();
-        data.savedButtonsValue1 = buttons[1].getValue();
-        data.savedButtonsValue2 = buttons[2].getValue();
-        data.savedButtonsValue3 = buttons[3].getValue();
-        data.savedButtonsValue4 = buttons[4].getValue();
-        data.savedButtonsValue5 = buttons[5].getValue();
-        data.savedButtonsValue6 = buttons[6].getValue();
-        data.savedButtonsValue7 = buttons[7].getValue();
-        data.savedButtonsValue8 = buttons[8].getValue();
+        data.saveButtonsValue0 = buttons[0].getValue();
+        data.saveButtonsValue1 = buttons[1].getValue();
+        data.saveButtonsValue2 = buttons[2].getValue();
+        data.saveButtonsValue3 = buttons[3].getValue();
+        data.saveButtonsValue4 = buttons[4].getValue();
+        data.saveButtonsValue5 = buttons[5].getValue();
+        data.saveButtonsValue6 = buttons[6].getValue();
+        data.saveButtonsValue7 = buttons[7].getValue();
+        data.saveButtonsValue8 = buttons[8].getValue();
 
 
 
@@ -320,7 +325,7 @@ public class GameController {
 
             alert.setTitle(null);
             alert.setHeaderText(null);
-            alert.setContentText("Couldn't save" + e.getMessage());
+            alert.setContentText("Couldn't save! Error: " + e.getMessage());
             alert.showAndWait();
         }
     }
@@ -333,16 +338,17 @@ public class GameController {
             playerWinsCount = data.savePlayerWins;
             opponentSi = data.saveGameMode;
             winsInRow = data.saveWinInRow;
+            playerTurn = data.savePlayerTurn;
 
-            buttons[0].setState(data.savedButtonsValue0);
-            buttons[1].setState(data.savedButtonsValue1);
-            buttons[2].setState(data.savedButtonsValue2);
-            buttons[3].setState(data.savedButtonsValue3);
-            buttons[4].setState(data.savedButtonsValue4);
-            buttons[5].setState(data.savedButtonsValue5);
-            buttons[6].setState(data.savedButtonsValue6);
-            buttons[7].setState(data.savedButtonsValue7);
-            buttons[8].setState(data.savedButtonsValue8);
+            buttons[0].setState(data.saveButtonsValue0);
+            buttons[1].setState(data.saveButtonsValue1);
+            buttons[2].setState(data.saveButtonsValue2);
+            buttons[3].setState(data.saveButtonsValue3);
+            buttons[4].setState(data.saveButtonsValue4);
+            buttons[5].setState(data.saveButtonsValue5);
+            buttons[6].setState(data.saveButtonsValue6);
+            buttons[7].setState(data.saveButtonsValue7);
+            buttons[8].setState(data.saveButtonsValue8);
 
 
 
@@ -363,7 +369,7 @@ public class GameController {
 
             alert.setTitle(null);
             alert.setHeaderText(null);
-            alert.setContentText("Couldn't load" + e.getMessage());
+            alert.setContentText("Couldn't load! Error: " + e.getMessage());
             alert.showAndWait();
         }
     }

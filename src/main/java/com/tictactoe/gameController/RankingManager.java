@@ -1,8 +1,5 @@
 package com.tictactoe.gameController;
 
-import ch.qos.logback.classic.util.LogbackMDCAdapter;
-import ch.qos.logback.core.html.HTMLLayoutBase;
-import com.tictactoe.TicTacToeGameApplication;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -15,17 +12,13 @@ import javafx.stage.Stage;
 import java.io.*;
 import java.util.ArrayList;
 
-public class RankingManager implements Serializable{
+public class RankingManager{
 
-    private static final long serialVersionUID = 2L;
     private ArrayList<Player> ranking = new ArrayList<>();
-
-
-
     private Alert alert = new Alert(Alert.AlertType.INFORMATION);
 
 
-    public void fillranking() {
+    public void resetRanking() {
         Player player0 = new Player("Free", 0);
         for (int i= 0 ; i < 10 ; i++) {
             ranking.add(player0);
@@ -35,15 +28,13 @@ public class RankingManager implements Serializable{
 
 
     public void rankingChecker(Player player) {
-
-
+        loadRanking();
         for (int i = 0, j = 0; i < 10 && j < 1; i++) {
             if (ranking.get(i).getWinsInRow() < player.getWinsInRow()) {
                 ranking.add(i, player);
                 ranking.remove(10);
                 saveRanking();
                 j++;
-
             }
         }
     }
@@ -68,34 +59,26 @@ public class RankingManager implements Serializable{
     }
 
     public void saveRanking() {
-
-
         try {
-            FileOutputStream fout = new FileOutputStream("ranking.ser");
+            FileOutputStream fout = new FileOutputStream("ranking.txt");
             ObjectOutputStream oos = new ObjectOutputStream(fout);
             oos.writeObject(ranking);
             oos.close();
             fout.close();
 
-            System.out.println("Ranking saved");
-
-
-
         } catch (IOException e) {
 
             alert.setTitle(null);
             alert.setHeaderText(null);
-            alert.setContentText("Couldn't save ranking" + e.getMessage());
+            alert.setContentText("Couldn't save ranking! Error: " + e.getMessage());
             alert.showAndWait();
         }
     }
 
     public void loadRanking() {
 
-
-
         try {
-            FileInputStream fin= new FileInputStream ("ranking.ser");
+            FileInputStream fin= new FileInputStream ("ranking.txt");
             ObjectInputStream ois = new ObjectInputStream(fin);
             ranking = (ArrayList<Player>)ois.readObject();
             fin.close();
@@ -103,7 +86,7 @@ public class RankingManager implements Serializable{
         } catch (Exception e) {
             alert.setTitle(null);
             alert.setHeaderText(null);
-            alert.setContentText("Couldn't load ranking" + e.getMessage());
+            alert.setContentText("Couldn't load ranking! Error:" + e.getMessage());
             alert.showAndWait();
         }
     }

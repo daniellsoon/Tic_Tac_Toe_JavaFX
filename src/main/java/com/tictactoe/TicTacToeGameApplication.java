@@ -26,16 +26,12 @@ public class TicTacToeGameApplication extends Application {
 
     private TicTacToeBoardButton[] buttons;
     private Image imageback = new Image("/BackAndBoard.png");
-    private TextField name = new TextField("Insert name!");
+    public static TextField name = new TextField("Insert name!");
 
     public static void main(String[] args) {
         launch(args);
 
 
-    }
-
-    public String getNameTextField() {
-        return name.getText();
     }
 
 
@@ -57,7 +53,8 @@ public class TicTacToeGameApplication extends Application {
 
         GameController gameController = new GameController();
         RankingManager rankingManager = new RankingManager();
-        rankingManager.fillranking();
+
+
 
 
         //Menu
@@ -100,7 +97,6 @@ public class TicTacToeGameApplication extends Application {
         load.setPrefSize(90,10);
         load.setOnAction(event -> {
             gameController.loadGame(buttons);
-            //gameController.restartBoard(buttons);
         });
 
         Button gameMode = new Button("GAME MODE");
@@ -152,7 +148,7 @@ public class TicTacToeGameApplication extends Application {
         gridPaneMenu.add(opponentPoints,2, 1);
         gridPaneMenu.add(gameMode,1,2);
 
-        gridPaneBoard.add(name,1,4);
+        gridPaneMenu.add(name,1,4);
         gridPaneMenu.add(ranking,1,5);
         gridPaneMenu.add(save,1,6);
         gridPaneMenu.add(load,1,7);

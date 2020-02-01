@@ -10,15 +10,16 @@ public class SaveData implements Serializable {
     public int saveOpponentWins;
     public boolean saveGameMode;
     public int saveWinInRow;
-    public int savedButtonsValue0;
-    public int savedButtonsValue1;
-    public int savedButtonsValue2;
-    public int savedButtonsValue3;
-    public int savedButtonsValue4;
-    public int savedButtonsValue5;
-    public int savedButtonsValue6;
-    public int savedButtonsValue7;
-    public int savedButtonsValue8;
+    public boolean savePlayerTurn;
+    public int saveButtonsValue0;
+    public int saveButtonsValue1;
+    public int saveButtonsValue2;
+    public int saveButtonsValue3;
+    public int saveButtonsValue4;
+    public int saveButtonsValue5;
+    public int saveButtonsValue6;
+    public int saveButtonsValue7;
+    public int saveButtonsValue8;
 
 
 }
