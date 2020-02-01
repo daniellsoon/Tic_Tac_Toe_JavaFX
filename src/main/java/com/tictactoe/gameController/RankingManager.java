@@ -6,6 +6,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -26,7 +27,6 @@ public class RankingManager{
         saveRanking();
     }
 
-
     public void rankingChecker(Player player) {
         loadRanking();
         for (int i = 0, j = 0; i < 10 && j < 1; i++) {
@@ -46,6 +46,11 @@ public class RankingManager{
         Stage dialogStage = new Stage();
         dialogStage.initModality(Modality.WINDOW_MODAL);
         VBox vbox = new VBox();
+
+        Label rakingLbl = new Label("Wins in row against Si!");
+        vbox.getChildren().add(rakingLbl);
+        rakingLbl.setFont(new Font("Regular", 18));
+        rakingLbl.setAlignment(Pos.CENTER);
 
         for (int i = 0; i < 10; i++) {
             Label player = new Label((i + 1) + ". " + ranking.get(i).getName() + "- Points: " + ranking.get(i).getWinsInRow());

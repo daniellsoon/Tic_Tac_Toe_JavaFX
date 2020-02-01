@@ -20,6 +20,7 @@ public class SaveData implements Serializable {
     public int saveButtonsValue6;
     public int saveButtonsValue7;
     public int saveButtonsValue8;
+    public String playerName;
 
 
 }

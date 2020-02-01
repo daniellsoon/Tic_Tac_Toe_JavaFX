@@ -1,7 +1,6 @@
 package com.tictactoe.gameController;
 
-
-import com.tictactoe.TicTacToeGameApplication;
+import com.tictactoe.gameBuilder.MenuBuilder;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.geometry.Insets;
@@ -14,7 +13,6 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-
 import java.io.*;
 import java.util.Random;
 
@@ -39,16 +37,12 @@ public class GameController {
     private Alert alert = new Alert(Alert.AlertType.INFORMATION);
     private Random randomGenerator = new Random();
     private RankingManager rankingManager = new RankingManager();
-    private TicTacToeGameApplication ticTacToeGameApplication = new TicTacToeGameApplication();
-
-
-    private File saved = new File("1.save");
+    private File saved = new File("save.save");
 
 
     public IntegerProperty getWinInRowProperty() {
         return winInRowProperty;
     }
-
 
     public IntegerProperty getOpponentWinsProperty() {
         return opponentWinsProperty;
@@ -57,8 +51,6 @@ public class GameController {
     public IntegerProperty getPlayerWinsProperty() {
         return playerWinsProperty;
     }
-
-
 
     public void ticTacToeGame(TicTacToeBoardButton[] buttons) {
 
@@ -124,7 +116,6 @@ public class GameController {
 
     }
 
-
     public void computerMove(TicTacToeBoardButton[] buttons) {
 
         if (movesCount < MAXMOVES) {
@@ -182,6 +173,7 @@ public class GameController {
             button.setValueForReset();
         }
         movesCount = 0;
+
     }
 
     public void restartCounts(){
@@ -191,12 +183,9 @@ public class GameController {
         opponentWinsProperty.setValue(opponentWinsCount);
         playerWinsProperty.setValue(playerWinsCount);
         winInRowProperty.setValue(winsInRow);
-
-
     }
 
     public void winChecker(TicTacToeBoardButton[] buttons) {
-
         //Horizontal Checker
         for (int i = 0; i < MAXBOARDBUTTONS; i = i + 3) {
             if (buttons[i].getValue() == 1 && buttons[i + 1].getValue() == 1 && buttons[i + 2].getValue() == 1) {
@@ -234,7 +223,6 @@ public class GameController {
 
     public void dialogInformation() {
         if (xWins) {
-
             alert.setTitle(null);
             alert.setHeaderText(null);
             alert.setContentText("Congrats X - Wins!");
@@ -250,44 +238,33 @@ public class GameController {
                 winsInRow = 0;
             }
             winInRowProperty.setValue(winsInRow);
-
         }
         if (oWins) {
 
             alert.setTitle(null);
             alert.setHeaderText(null);
             alert.setContentText("Congrats O - Wins!");
-
             alert.showAndWait();
 
             opponentWinsCount++;
             opponentWinsProperty.setValue(opponentWinsCount);
 
             if (opponentSi) {
-                Player player = new Player(TicTacToeGameApplication.name.getText(), winsInRow);
+                Player player = new Player(MenuBuilder.name.getText(), winsInRow);
                 rankingManager.rankingChecker(player);
             }
 
             winsInRow = 0;
             winInRowProperty.setValue(winsInRow);
-
-
-
         }
 
         if (movesCount == 9 && !xWins && !oWins) {
-
-
             alert.setTitle(null);
             alert.setHeaderText(null);
             alert.setContentText("No more moves! Clearing board!");
-
             alert.showAndWait();
         }
     }
-
-
-
 
     public void saveGame(TicTacToeBoardButton[] buttons) {
 
@@ -297,6 +274,7 @@ public class GameController {
         data.saveGameMode = opponentSi;
         data.saveWinInRow = winsInRow;
         data.savePlayerTurn = playerTurn;
+        data.playerName = MenuBuilder.name.getText();
 
         data.saveButtonsValue0 = buttons[0].getValue();
         data.saveButtonsValue1 = buttons[1].getValue();
@@ -307,10 +285,6 @@ public class GameController {
         data.saveButtonsValue6 = buttons[6].getValue();
         data.saveButtonsValue7 = buttons[7].getValue();
         data.saveButtonsValue8 = buttons[8].getValue();
-
-
-
-
 
         try {
             ObjectOutputStream oos = new ObjectOutputStream (new FileOutputStream(saved));
@@ -339,6 +313,7 @@ public class GameController {
             opponentSi = data.saveGameMode;
             winsInRow = data.saveWinInRow;
             playerTurn = data.savePlayerTurn;
+            MenuBuilder.name.setText(data.playerName);
 
             buttons[0].setState(data.saveButtonsValue0);
             buttons[1].setState(data.saveButtonsValue1);
@@ -350,15 +325,11 @@ public class GameController {
             buttons[7].setState(data.saveButtonsValue7);
             buttons[8].setState(data.saveButtonsValue8);
 
-
-
-
             ois.close();
 
             opponentWinsProperty.setValue(opponentWinsCount);
             playerWinsProperty.setValue(playerWinsCount);
             winInRowProperty.setValue(winsInRow);
-
 
             alert.setTitle(null);
             alert.setHeaderText(null);
@@ -366,19 +337,12 @@ public class GameController {
             alert.showAndWait();
 
         } catch (Exception e) {
-
             alert.setTitle(null);
             alert.setHeaderText(null);
             alert.setContentText("Couldn't load! Error: " + e.getMessage());
             alert.showAndWait();
         }
     }
-
-
-
-
-
-
 }
 
 
