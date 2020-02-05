@@ -1,4 +1,4 @@
-package com.tictactoe.gameController;
+package com.tictactoe.game.controller;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;

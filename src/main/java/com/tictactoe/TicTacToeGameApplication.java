@@ -1,9 +1,9 @@
 package com.tictactoe;
 
-import com.tictactoe.gameBuilder.MenuBuilder;
-import com.tictactoe.gameController.GameController;
-import com.tictactoe.gameController.RankingManager;
-import com.tictactoe.gameController.TicTacToeBoardButton;
+import com.tictactoe.game.builder.MenuBuilder;
+import com.tictactoe.game.controller.GameController;
+import com.tictactoe.game.controller.RankingManager;
+import com.tictactoe.game.controller.TicTacToeBoardButton;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -12,7 +12,7 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
-import static com.tictactoe.gameController.GameController.MAXBOARDBUTTONS;
+import static com.tictactoe.game.controller.GameController.MAXBOARDBUTTONS;
 
 
 public class TicTacToeGameApplication extends Application {

@@ -1,4 +1,4 @@
-package com.tictactoe.gameController;
+package com.tictactoe.game.controller;
 
 import java.io.Serializable;
 

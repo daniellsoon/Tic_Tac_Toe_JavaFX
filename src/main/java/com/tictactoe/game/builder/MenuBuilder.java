@@ -1,8 +1,8 @@
-package com.tictactoe.gameBuilder;
+package com.tictactoe.game.builder;
 
-import com.tictactoe.gameController.GameController;
-import com.tictactoe.gameController.RankingManager;
-import com.tictactoe.gameController.TicTacToeBoardButton;
+import com.tictactoe.game.controller.GameController;
+import com.tictactoe.game.controller.RankingManager;
+import com.tictactoe.game.controller.TicTacToeBoardButton;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;

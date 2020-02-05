@@ -1,6 +1,6 @@
-package com.tictactoe.gameController;
+package com.tictactoe.game.controller;
 
-import com.tictactoe.gameBuilder.MenuBuilder;
+import com.tictactoe.game.builder.MenuBuilder;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.geometry.Insets;
